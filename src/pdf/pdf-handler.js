@@ -1,10 +1,5 @@
 'use strict';
 
-/**
- * PDF file name, image files' paths, and each image file's text.
- * @typedef {{pdfName: String, imgFilesPaths: String[], imgFilesTexts: Tesseract.RecognizeResult[]}[]} PdfData
- */
-
 const fs = require('fs');
 const path = require('path');
 const { PDFDocument, StandardFonts, PageSizes } = require('pdf-lib');
@@ -13,7 +8,7 @@ const { filterText, wrapText } = require('../utils');
 
 /**
  * @param {String} containerPath Absolute path to container where PDFs will be saved.
- * @param {PdfData} pdfData PDF data for PDF files creation.
+ * @param {import('./pdf-data-helper').PdfData} pdfData PDF data for PDF files creation.
  * @param {Object} [options] Options, width and height default to landscape A4.
  * @param {number} [options.pageWidth=PageSizes.A4[1]] PDF pages width.
  * @param {number} [options.pageHeight=PageSizes.A4[0]] PDF pages height.
