@@ -51,7 +51,7 @@ function getMaxNumImages(containerData) {
 
 /**
  * @param {import('./container-data-helper').ContainerData} containerData
- * @returns {Promise<RecognitionResults>} Promise of results of recognition results, promise of empty RecognitionResults on invalid args.
+ * @returns {Promise<RecognitionResults>} Promise of recognition results, promise of empty RecognitionResults on invalid args.
  */
 async function recognize(containerData) {
     // validate args
