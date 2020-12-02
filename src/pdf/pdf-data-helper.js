@@ -34,3 +34,5 @@ function fromRecognitionResults(recognitionResults) {
         };
     });
 }
+
+module.exports = { fromRecognitionResults }

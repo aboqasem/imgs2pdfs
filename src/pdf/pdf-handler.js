@@ -8,7 +8,7 @@ const { filterText, wrapText } = require('../utils');
 
 /**
  * @param {String} containerPath Absolute path to container where PDFs will be saved.
- * @param {PdfData} pdfData PDF data for PDF files creation.
+ * @param {import('./pdf-data-helper').PdfData} pdfData PDF data for PDF files creation.
  * @param {Object} [options] Options, width and height default to landscape A4.
  * @param {Number} [options.pageWidth=PageSizes.A4[1]] PDF pages width.
  * @param {Number} [options.pageHeight=PageSizes.A4[0]] PDF pages height.
