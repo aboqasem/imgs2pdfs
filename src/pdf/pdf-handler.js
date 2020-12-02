@@ -10,8 +10,8 @@ const { filterText, wrapText } = require('../utils');
  * @param {String} containerPath Absolute path to container where PDFs will be saved.
  * @param {PdfData} pdfData PDF data for PDF files creation.
  * @param {Object} [options] Options, width and height default to landscape A4.
- * @param {number} [options.pageWidth=PageSizes.A4[1]] PDF pages width.
- * @param {number} [options.pageHeight=PageSizes.A4[0]] PDF pages height.
+ * @param {Number} [options.pageWidth=PageSizes.A4[1]] PDF pages width.
+ * @param {Number} [options.pageHeight=PageSizes.A4[0]] PDF pages height.
  * @returns {Promise<Boolean>} True if created, otherwise false.
  */
 async function createPdfs(containerPath, pdfData, options = {

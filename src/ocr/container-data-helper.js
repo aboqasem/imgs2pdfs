@@ -10,10 +10,10 @@ const path = require('path');
 
 
 /**
- * @param {string} mainContainerPath Absolute path to the main container.
- * @param {object} [options] Options.
- * @param {string} [options.dirNameContains='Folder'] Should be present in each directory name.
- * @param {string} [options.imgFileNameContains='Image'] Should be present in each image file name.
+ * @param {String} mainContainerPath Absolute path to the main container.
+ * @param {Object} [options] Options.
+ * @param {String} [options.dirNameContains='Folder'] Should be present in each directory name.
+ * @param {String} [options.imgFileNameContains='Image'] Should be present in each image file name.
  * @param {number} [options.imgType=0] Type of image (0: PNG, 1: JPG).
  * @returns {ContainerData} Array of directories' data ready for use in recognition, empty array on invalid args.
  */

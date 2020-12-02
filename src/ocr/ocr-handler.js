@@ -13,7 +13,7 @@ const { createScheduler, createWorker } = require('tesseract.js');
 const numLogicalCpusToUse = require('os').cpus().length - 1;
 
 /**
- * @param {number} [numJobs=numLogicalCpusToUse] Number of all jobs.
+ * @param {Number} [numJobs=numLogicalCpusToUse] Number of all jobs.
  * @returns {Tesseract.Scheduler} Job scheduler for OCR.
  */
 async function getNewScheduler(numJobs = numLogicalCpusToUse) {
@@ -37,7 +37,7 @@ async function getNewScheduler(numJobs = numLogicalCpusToUse) {
 
 /**
  * @param {import('./container-data-helper').ContainerData} containerData
- * @returns {number} Maximum number of image file names found in container's directories.
+ * @returns {Number} Maximum number of image file names found in container's directories.
  */
 function getMaxNumImages(containerData) {
     let maxNumImages = 0;
