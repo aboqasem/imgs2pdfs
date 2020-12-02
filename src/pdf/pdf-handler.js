@@ -20,7 +20,6 @@ async function createPdfs(containerPath, pdfData, options = {
 }) {
     const pageWidth = options.pageWidth || PageSizes.A4[1],
         pageHeight = options.pageHeight || PageSizes.A4[0];
-    console.log(pdfData); //
     // validate args
     if (!(containerPath && path.isAbsolute(containerPath) && pdfData && pageWidth > 0 && pageHeight > 0)) {
         console.error('Error: Invalid arguments.\n');
