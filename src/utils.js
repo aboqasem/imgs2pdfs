@@ -1,5 +1,3 @@
-const { lineSplit } = require("pdf-lib");
-
 /**
  * @param {String} text Original text.
  * @param {Number[]} characterSet Accepted character set.
