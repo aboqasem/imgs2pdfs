@@ -20,7 +20,7 @@ async function createPdfs(containerPath, pdfData, options = {
 }) {
     const pageWidth = options.pageWidth || PageSizes.A4[1],
         pageHeight = options.pageHeight || PageSizes.A4[0];
-    console.log(pdfData);
+    console.log(pdfData); //
     // validate args
     if (!(containerPath && path.isAbsolute(containerPath) && pdfData && pageWidth > 0 && pageHeight > 0)) {
         console.error('Error: Invalid arguments.\n');
@@ -34,7 +34,7 @@ async function createPdfs(containerPath, pdfData, options = {
     console.log(`Creating PDF files into: "${containerPath}"...\n`);
     let numPdf = 0;
 
-    for (const { pdfName, imgFilesPaths, imgFilesTexts } of pdfData) {
+    for (const { pdfName, imgsData } of pdfData) {
         const pdfPath = path.format({
             dir: containerPath,
             name: pdfName,
@@ -46,23 +46,22 @@ async function createPdfs(containerPath, pdfData, options = {
         console.log(`Creating "${pdfFileName}"...\n`);
         const pdfDocument = await PDFDocument.create();
         const pdfFont = await pdfDocument.embedFont(StandardFonts.TimesRoman);
-        let index = 0, pageNumber = 1;
-        for (const imgFilePath of imgFilesPaths) {
+        let pageNumber = 1;
+        for (const { imgPath, imgText } of imgsData) {
             console.log(`Creating page ${pageNumber} of ${pdfFileName}...\n`);
             // validate image file's type
-            const imgFileType = path.extname(imgFilePath);
-            if (!(imgFileType === '.jpg' || imgFileType === '.jpeg' || imgFileType === '.png')) {
-                console.error(`Error: Invalid image type ${imgFileType} of file "${imgFilePath}".\n`);
-                index++;
+            const imgType = path.extname(imgPath);
+            if (!(imgType === '.jpg' || imgType === '.jpeg' || imgType === '.png')) {
+                console.error(`Error: Invalid image type ${imgType} of file "${imgPath}".\n`);
                 continue;
             }
             // will create a page only if there is a valid image
             const page = pdfDocument.addPage([pageWidth, pageHeight]);
             let pageImage;
-            if (imgFileType === '.png') {
-                pageImage = await pdfDocument.embedPng(fs.readFileSync(imgFilePath));
+            if (imgType === '.png') {
+                pageImage = await pdfDocument.embedPng(fs.readFileSync(imgPath));
             } else {
-                pageImage = await pdfDocument.embedJpg(fs.readFileSync(imgFilePath));
+                pageImage = await pdfDocument.embedJpg(fs.readFileSync(imgPath));
             }
             page.drawImage(pageImage, {
                 x: 0,
@@ -72,7 +71,6 @@ async function createPdfs(containerPath, pdfData, options = {
             });
 
             // clean and wrap text
-            const imgText = imgFilesTexts[index++];
             const cleanText = filterText(imgText, pdfFont.getCharacterSet());
             const drawableText = wrapText(cleanText, 140);
             page.drawText(drawableText, {
@@ -89,7 +87,7 @@ async function createPdfs(containerPath, pdfData, options = {
             console.log(`Created "${pdfFileName}", saving...\n`);
             fs.writeFileSync(pdfPath, await pdfDocument.save());
             numPdf++;
-            console.log(`Saved "${pdfFileName}" to "${pdfPath}".\n`);
+            console.log(`Saved "${pdfFileName}" as "${pdfPath}".\n`);
         } else {
             console.error(`Error: Did not create "${pdfFileName}".\n`);
         }
@@ -99,7 +97,7 @@ async function createPdfs(containerPath, pdfData, options = {
         console.log(`Done ${numPdf} PDF file(s). Saved created file(s) to "${containerPath}".\n`);
         return true;
     }
-    console.error(`Error: No created PDF files.\n`);
+    console.error('Error: No created PDF files.\n');
     return false;
 }
 

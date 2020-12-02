@@ -2,6 +2,6 @@
 
 /**
  * PDF file name, image files' paths, and each image file's text.
- * @typedef {{pdfName: String, imgFilesPaths: String[], imgFilesTexts: String[]}[]} PdfData
+ * @typedef {{pdfName: String, imgsData: {imgPath: String, imgText: String}[]}[]} PdfData
  */
 
