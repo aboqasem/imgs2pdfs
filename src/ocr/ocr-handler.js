@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Detailed data about a container to use in conversion.
+ * Results of recognition of each of the directories' image files.
  * @typedef {{dirName: String, imgFilesPaths: String[], results: Tesseract.RecognizeResult[]}[]} RecognitionResults
  */
 
@@ -37,7 +37,7 @@ async function getNewScheduler(numJobs = numLogicalCpusToUse) {
 
 /**
  * @param {import('./container-data-helper').ContainerData} containerData
- * @returns {number} Maximum number of image file names found in container directories.
+ * @returns {number} Maximum number of image file names found in container's directories.
  */
 function getMaxNumImages(containerData) {
     let maxNumImages = 0;
@@ -51,7 +51,7 @@ function getMaxNumImages(containerData) {
 
 /**
  * @param {import('./container-data-helper').ContainerData} containerData
- * @returns {Promise<RecognitionResults>} Promise of results of recognition, promise of empty RecognitionResults on invalid args.
+ * @returns {Promise<RecognitionResults>} Promise of results of recognition results, promise of empty RecognitionResults on invalid args.
  */
 async function recognize(containerData) {
     // validate args

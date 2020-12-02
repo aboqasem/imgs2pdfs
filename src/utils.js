@@ -1,5 +1,4 @@
 /**
- * 
  * @param {String} text 
  * @param {Number[]} characterSet 
  */
@@ -12,7 +11,6 @@ function filterText(text, characterSet) {
 }
 
 /**
- * 
  * @param {String} text 
  * @param {Number} lineLength 
  */

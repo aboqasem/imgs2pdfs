@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Detailed data about a container to use in conversion.
+ * PDF file name, image files' paths, and each image file's text.
  * @typedef {{pdfName: String, imgFilesPaths: String[], imgFilesTexts: Tesseract.RecognizeResult[]}[]} PdfData
  */
 
@@ -13,7 +13,7 @@ const { filterText, wrapText } = require('../utils');
 
 /**
  * @param {String} containerPath Absolute path to container where PDFs will be saved.
- * @param {PdfData} pdfData PDF file name, image files paths, and each image file's text.
+ * @param {PdfData} pdfData PDF data for PDF files creation.
  * @param {Object} [options] Options, width and height default to landscape A4.
  * @param {number} [options.pageWidth=PageSizes.A4[1]] PDF pages width.
  * @param {number} [options.pageHeight=PageSizes.A4[0]] PDF pages height.
@@ -54,7 +54,7 @@ async function createPdfs(containerPath, pdfData, options = {
         let index = 0, pageNumber = 1;
         for (const imgFilePath of imgFilesPaths) {
             console.log(`Creating page ${pageNumber} of ${pdfFileName}...\n`);
-            // validate image file type
+            // validate image file's type
             const imgFileType = path.extname(imgFilePath);
             if (!(imgFileType === '.jpg' || imgFileType === '.jpeg' || imgFileType === '.png')) {
                 console.error(`Error: Invalid image type ${imgFileType} of file "${imgFilePath}".\n`);
@@ -82,10 +82,10 @@ async function createPdfs(containerPath, pdfData, options = {
             const drawableText = wrapText(cleanText, 140);
             page.drawText(drawableText, {
                 x: 0,
-                // to make the text visible, since if 0 it will go out of bound
+                // to get the full text inside the page, since if 0 it will go out of bound
                 y: pageHeight - 10,
                 size: 12,
-                opacity: 1,
+                opacity: 0,
             });
             console.log(`Added page ${pageNumber++} of ${pdfFileName}.\n`);
         }
@@ -99,6 +99,7 @@ async function createPdfs(containerPath, pdfData, options = {
             console.error(`Error: Did not create "${pdfFileName}".\n`);
         }
     }
+    // check if PDF files where created
     if (numPdf > 0) {
         console.log(`Done ${numPdf} PDF file(s). Saved created file(s) to "${containerPath}".\n`);
         return true;

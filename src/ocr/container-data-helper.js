@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Detailed data about a container to use in conversion.
+ * Detailed data about a container to use in recognition.
  * @typedef {{dirName: String, dirPath: String, imgFilesNames: String[]}[]} ContainerData
  */
 
@@ -15,7 +15,7 @@ const path = require('path');
  * @param {string} [options.dirNameContains='Folder'] Should be present in each directory name.
  * @param {string} [options.imgFileNameContains='Image'] Should be present in each image file name.
  * @param {number} [options.imgType=0] Type of image (0: PNG, 1: JPG).
- * @returns {ContainerData} Array of directories data ready for use in conversion, empty array on invalid args.
+ * @returns {ContainerData} Array of directories' data ready for use in recognition, empty array on invalid args.
  */
 function getContainerData(mainContainerPath, options = {
     dirNameContains: 'Folder',
@@ -33,7 +33,7 @@ function getContainerData(mainContainerPath, options = {
 
     console.log(`Getting container's data from: "${mainContainerPath}"...\n`);
 
-    // get the directories entries from the main container
+    // get the directories' entries from the main container
     const dirsNames = fs.readdirSync(mainContainerPath, { withFileTypes: true })
         .filter(fileDirent => fileDirent.isDirectory())
         .filter(dirDirent => dirDirent.name.includes(dirNameContains))
