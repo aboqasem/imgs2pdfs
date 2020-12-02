@@ -1,0 +1,18 @@
+{
+  "name": "imgs2pdfs",
+  "version": "1.0.0",
+  "description": "Images to PDFs converter.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aboqasem/imgs2pdfs.git"
+  },
+  "main": "src/index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Mohammad Al Zouabi",
+  "license": "MIT",
+  "dependencies": {
+    "pdf-lib": "^1.12.0",
+    "tesseract.js": "^2.1.4"
+  }
+}
