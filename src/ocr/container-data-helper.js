@@ -59,7 +59,7 @@ function getContainerData(mainContainerPath, options = {
             dirPath,
             imgFilesNames,
         };
-    });
+    }).filter(({ imgFilesNames }) => imgFilesNames.length);
 
     console.log(`Got container's data: "${mainContainerPath}":\n${JSON.stringify(containerData, undefined, 2)}\n\n`);
     return containerData;
