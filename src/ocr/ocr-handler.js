@@ -57,7 +57,7 @@ async function recognize(containerData) {
     // validate args
     if (!(containerData && containerData.length)) {
         console.error('Error: No data to recognize.\n');
-        return [{ dirName: '', imgFilesPaths: [], results: [] }];
+        return [{ dirName: '', imgFilesPaths: [], results: [] }].filter(v => v.imgFilesPaths.length);
     }
 
     const scheduler = await getNewScheduler(getMaxNumImages(containerData));

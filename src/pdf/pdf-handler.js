@@ -25,13 +25,13 @@ async function createPdfs(containerPath, pdfData, options = {
         console.error('Error: Invalid arguments.\n');
         return false;
     }
-    if (!(pdfData.length)) {
+    if (!(pdfData.length && pdfData[0].imgsData.length)) {
         console.error('Error: No data to create PDF files from.\n');
         return false;
     }
 
     console.log(`Creating PDF files into: "${containerPath}"...\n`);
-    let numPdf = 0;
+    let numPdfs = 0;
 
     for (const { pdfName, imgsData } of pdfData) {
         const pdfPath = path.format({
@@ -85,15 +85,15 @@ async function createPdfs(containerPath, pdfData, options = {
         if (pdfDocument.getPageCount() > 0) {
             console.log(`Created "${pdfFileName}", saving...\n`);
             fs.writeFileSync(pdfPath, await pdfDocument.save());
-            numPdf++;
+            numPdfs++;
             console.log(`Saved "${pdfFileName}" as "${pdfPath}".\n`);
         } else {
             console.error(`Error: Did not create "${pdfFileName}".\n`);
         }
     }
     // check if PDF files where created
-    if (numPdf > 0) {
-        console.log(`Done ${numPdf} PDF file(s). Saved created file(s) to "${containerPath}".\n`);
+    if (numPdfs > 0) {
+        console.log(`Done ${numPdfs} PDF file(s). Saved created file(s) to "${containerPath}".\n`);
         return true;
     }
     console.error('Error: No created PDF files.\n');

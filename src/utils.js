@@ -37,7 +37,7 @@ function wrapText(text, lineLength) {
             lines.push(line.trimEnd());
             // empty the line when out of safe bound
             line = '';
-        } else if (index == words.length - 1) {
+        } else if (index === words.length - 1) {
             lines.push(line.trimEnd());
         }
     });

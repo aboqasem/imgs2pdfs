@@ -28,10 +28,8 @@ function getContainerData(mainContainerPath, options = {
     // validate args
     if (!(mainContainerPath && path.isAbsolute(mainContainerPath) && imgType >= 0 && imgType <= 1)) {
         console.error('Error: Invalid arguments.\n');
-        return [{ dirName: '', dirPath: '', imgFilesNames: [] }];
+        return [{ dirName: '', dirPath: '', imgFilesNames: [] }].filter(v => v.imgFilesNames.length);
     }
-
-    console.log(`Getting container's data from: "${mainContainerPath}"...\n`);
 
     // get the directories' entries from the main container
     const dirsNames = fs.readdirSync(mainContainerPath, { withFileTypes: true })
@@ -61,7 +59,11 @@ function getContainerData(mainContainerPath, options = {
         };
     }).filter(({ imgFilesNames }) => imgFilesNames.length);
 
-    console.log(`Got container's data: "${mainContainerPath}":\n${JSON.stringify(containerData, undefined, 2)}\n\n`);
+    containerData.forEach(({ dirPath, imgFilesNames }) => {
+        console.log(`Found ${imgFilesNames.length} image files in "${dirPath}":`);
+        console.table(imgFilesNames);
+        console.log();
+    });
     return containerData;
 }
 

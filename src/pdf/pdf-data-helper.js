@@ -12,9 +12,9 @@
  */
 function fromRecognitionResults(recognitionResults) {
     //
-    if (!(recognitionResults && recognitionResults.length)) {
+    if (!(recognitionResults && recognitionResults.length && recognitionResults[0].imgFilesPaths.length)) {
         console.error('Error: No recognition results to recognize.\n');
-        return [{ pdfName: '', imgsData: [{ imgPath: '', imgText: '' }] }];
+        return [{ pdfName: '', imgsData: [{ imgPath: '', imgText: '' }] }].filter(v => v.imgsData[0].imgText === ' ');
     }
     // map the PDF data with the available valid recognition results
     return recognitionResults.map(({ dirName, imgFilesPaths, results }) => {
