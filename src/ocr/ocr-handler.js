@@ -14,7 +14,7 @@ const numLogicalCpusToUse = require('os').cpus().length - 1;
 
 /**
  * @param {Number} [numJobs=numLogicalCpusToUse] Number of all jobs.
- * @returns {Tesseract.Scheduler} Job scheduler for OCR.
+ * @returns {Promise<Tesseract.Scheduler>} Job scheduler for OCR.
  */
 async function getNewScheduler(numJobs = numLogicalCpusToUse) {
     // validate args
@@ -76,7 +76,7 @@ async function recognize(containerData) {
             // results will remain sorted
             results: await Promise.all(
                 imgFilesNames.map((imgFileName, index) => {
-                    const jobId = `${dirName}-${index + 1}`;
+                    const jobId = `${dirName} - Image File ${index + 1}`;
                     const job = scheduler.addJob('recognize',
                         imgFilesPaths[index],
                         {}, jobId,
