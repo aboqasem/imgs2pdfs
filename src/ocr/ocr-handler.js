@@ -76,7 +76,7 @@ async function recognize(containerData) {
             // results will remain sorted
             results: await Promise.all(
                 imgFilesNames.map((imgFileName, index) => {
-                    const jobId = `${dirName} - Image File ${index + 1}`;
+                    const jobId = `Image File ${index + 1} @ ${dirName}`;
                     const job = scheduler.addJob('recognize',
                         imgFilesPaths[index],
                         {}, jobId,
