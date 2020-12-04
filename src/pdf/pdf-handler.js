@@ -42,12 +42,13 @@ async function createPdfs(containerPath, pdfData, options = {
 
         const pdfFileName = path.parse(pdfPath).base;
 
-        console.log(`Creating "${pdfFileName}"...\n`);
+        const hr = new Array(pdfFileName.length + 14).fill('=').join('');
+        console.log(`${hr}\nCreating "${pdfFileName}"...\n${hr}\n`);
         const pdfDocument = await PDFDocument.create();
         const pdfFont = await pdfDocument.embedFont(StandardFonts.TimesRoman);
         let pageNumber = 1;
         for (const { imgPath, imgText } of imgsData) {
-            console.log(`Creating page ${pageNumber} of ${pdfFileName}...\n`);
+            console.log(`Creating page ${pageNumber}...`);
             // validate image file's type
             const imgType = path.extname(imgPath);
             if (!(imgType === '.jpg' || imgType === '.jpeg' || imgType === '.png')) {
@@ -79,14 +80,14 @@ async function createPdfs(containerPath, pdfData, options = {
                 size: 12,
                 opacity: 0,
             });
-            console.log(`Added page ${pageNumber++} of ${pdfFileName}.\n`);
+            console.log(`Added page ${pageNumber++}.\n`);
         }
         // check if there are pages created to save
         if (pdfDocument.getPageCount() > 0) {
-            console.log(`Created "${pdfFileName}", saving...\n`);
+            console.log(`Created "${pdfFileName}", saving...`);
             fs.writeFileSync(pdfPath, await pdfDocument.save());
             numPdfs++;
-            console.log(`Saved "${pdfFileName}" as "${pdfPath}".\n`);
+            console.log(`Saved "${pdfFileName}" as "${pdfPath}".\n${hr}\n`);
         } else {
             console.error(`Error: Did not create "${pdfFileName}".\n`);
         }

@@ -23,14 +23,20 @@ async function getNewScheduler(numJobs = numLogicalCpusToUse) {
         numJobs = 0;
     }
     const numWorkers = numJobs < numLogicalCpusToUse ? numJobs : numLogicalCpusToUse;
-
+    if (numWorkers > 0) {
+        console.log(`Creating ${numWorkers} worker(s)...\n`);
+    }
     const scheduler = createScheduler();
     for (let i = 0; i < numWorkers; ++i) {
+        console.log(`Preparing worker ${i + 1}...`);
         const worker = createWorker();
         await worker.load();
         await worker.loadLanguage('eng');
         await worker.initialize('eng');
         scheduler.addWorker(worker);
+    }
+    if (numWorkers > 0) {
+        console.log(`\nCreated ${numWorkers} worker(s)...\n`);
     }
     return scheduler;
 }
@@ -70,6 +76,7 @@ async function recognize(containerData) {
             path.join(dirPath, imgFileName)
         );
 
+        let recognitionsDone = 0;
         const recognitionResult = {
             dirName,
             imgFilesPaths,
@@ -82,7 +89,7 @@ async function recognize(containerData) {
                         {}, jobId,
                     );
                     job.then(() => {
-                        console.log(`Recognized (${jobId}).\n`);
+                        console.log(`${++recognitionsDone}. Recognized (${jobId}).\n`);
                     });
 
                     console.log(`Added "${imgFilesPaths[index]}" as (${jobId}) to the queue.\n`);
